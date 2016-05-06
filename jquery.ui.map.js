@@ -61,7 +61,129 @@
 		 */
 		options: {
 			mapTypeId: 'roadmap',
-			zoom: 5	
+			zoom: 5	,
+			styles: 
+
+[
+    {
+        "featureType": "landscape",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 65
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 51
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 30
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 40
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.province",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "lightness": -25
+            },
+            {
+                "saturation": -100
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "hue": "#ffff00"
+            },
+            {
+                "lightness": -25
+            },
+            {
+                "saturation": -97
+            }
+        ]
+    }
+]
+
+
 		},
 		
 		/**
@@ -143,6 +265,7 @@
 		addMarker: function(markerOptions, callback) {
 			markerOptions.map = this.get('map');
 			markerOptions.position = this._latLng(markerOptions.position);
+			markerOptions.icon = "http://s3.amazonaws.com/equisolve-dev4/eragroupinc/files/theme/images/map-icon.png";
 			var marker = new (markerOptions.marker || google.maps.Marker)(markerOptions);
 			var markers = this.get('markers');
 			if ( marker.id ) {
@@ -287,12 +410,12 @@
 
 		panTo: function(latlng) {
 			 var map = this.get('map');
-			 latlng = _latlng(latlng);
+			 latlng = this._latLng(latlng);
 			 $(map).triggerEvent('resize');
 			 map.setCenter(latlng);
 			 return this;
 
-		}
+		},
 		
 		/**
 		 * Destroys the plugin.
